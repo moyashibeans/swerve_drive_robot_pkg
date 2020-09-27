@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+    <xacro:include filename="$(find swerve_drive_robot_description)/urdf/common.xacro"/>
+    <xacro:include filename="$(find swerve_drive_robot_description)/urdf/swerve_drive/steering.transmission.xacro"/>
+    <xacro:include filename="$(find swerve_drive_robot_description)/urdf/swerve_drive/wheel.transmission.xacro"/>
+    <xacro:include filename="$(find swerve_drive_robot_description)/urdf/swerve_drive/swerve_drive.gazebo.xacro"/>
+
+    <xacro:property name="steering_radius" value="0.015"/>
+    <xacro:property name="steering_length" value="0.003"/>
+    <xacro:property name="steering_mass" value="0.01"/>
+
+    <xacro:property name="wheel_radius" value="0.01"/>
+    <xacro:property name="wheel_length" value="0.01"/>
+    <xacro:property name="wheel_mass" value="0.05"/>
+
+
+    <xacro:macro name="swerve_drive_v0" params="prefix parent *joint_origin *joint_axis_s *joint_axis_w">
+        <!-- steering -->
+        <joint name="${prefix}_steering_joint" type="revolute">
+            <xacro:insert_block name="joint_origin"/>
+            <parent link="${parent}"/>
+            <child link="${prefix}_steering_link"/>
+            <xacro:insert_block name="joint_axis_s"/>
+            <limit lower="-${M_PI}" upper="${M_PI}" effort="100" velocity="100"/>
+        </joint>
+
+        <link name="${prefix}_steering_link">
+            <visual>
+                <geometry>
+                    <mesh filename="package://swerve_drive_robot_description/meshes/stl/steering.STL"/>
+                </geometry>
+                <origin xyz="0 0 0" />
+                <material name="blue"/>
+            </visual>
+            <collision>
+                <geometry>
+                    <cylinder radius="${steering_radius}" length="${steering_length}"/>
+                </geometry>
+                <origin xyz="0 0 ${steering_length/2}"/>
+            </collision>
+            <inertial>
+                <origin xyz="0 0 ${steering_length/2}"/>
+                <xacro:cylinder_inertial mass="${steering_mass}" radius="${steering_radius}" length="${steering_length}"/>
+            </inertial>
+        </link>
+
+        <!-- wheel -->
+        <joint name="${prefix}_wheel_joint" type="continuous">
+            <origin xyz="0 0 0.005"/>
+            <parent link="${prefix}_steering_link"/>
+            <child link="${prefix}_wheel_link"/>
+            <xacro:insert_block name="joint_axis_w"/>
+            <limit velocity="12.0" effort="10" />
+            <dynamics damping="0.01"/>
+        </joint>
+
+        <link name="${prefix}_wheel_link">
+            <visual>
+                <geometry>
+                    <mesh filename="package://swerve_drive_robot_description/meshes/stl/wheel.STL"/>
+                </geometry>
+                <origin xyz="0 -${wheel_length/2} 0"/>
+                <material name="green"/>
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="${M_PI/2} 0 0"/>
+                <geometry>
+                    <cylinder radius="${wheel_radius}" length="${wheel_length}"/>
+                </geometry>
+            </collision>
+            <inertial>
+                <origin xyz="0 0 0" rpy="${M_PI/2} 0 0"/>
+                <xacro:cylinder_inertial mass="${wheel_mass}" radius="${wheel_radius}" length="${wheel_length}"/>
+            </inertial>
+        </link>
+    </xacro:macro>
+
+</robot>

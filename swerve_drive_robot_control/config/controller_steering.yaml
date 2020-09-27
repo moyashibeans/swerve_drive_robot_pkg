@@ -1,0 +1,24 @@
+#left_robot:
+joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: 50
+
+steering_controller_fr:
+  type: velocity_controllers/JointPositionController
+  joint: front_right_steering_joint
+  pid: { p: 10.0, i: 0.1, d: 0.1 }
+
+steering_controller_fl:
+  type: velocity_controllers/JointPositionController
+  joint: front_left_steering_joint
+  pid: { p: 10.0, i: 0.1, d: 0.1 }
+
+steering_controller_rr:
+  type: velocity_controllers/JointPositionController
+  joint: rear_right_steering_joint
+  pid: { p: 10.0, i: 0.1, d: 0.1 }
+
+steering_controller_rl:
+  type: velocity_controllers/JointPositionController
+  joint: rear_left_steering_joint
+  pid: { p: 10.0, i: 0.1, d: 0.1 }

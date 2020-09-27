@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<launch>
+
+    <arg name="model" default="$(find swerve_drive_robot_description)/robot/swerve_drive_robot.urdf.xacro"/>
+
+    <group ns="/swerve_drive_robot/steering">
+        <rosparam file="$(find swerve_drive_robot_control)/config/controller_steering.yaml" command="load"/>
+
+        <param name="robot_description" command="$(find xacro)/xacro --inorder '$(arg model)' load_trans_s:=true"/>
+
+        <node name="controller_spawner2" pkg="controller_manager" type="spawner" output="screen" respawn="false" args="joint_state_controller steering_controller_fr steering_controller_fl steering_controller_rr steering_controller_rl" />
+    </group>
+
+    <group ns="/swerve_drive_robot/wheel">
+        <rosparam file="$(find swerve_drive_robot_control)/config/controller_wheel.yaml" command="load"/>
+
+        <param name="robot_description" command="$(find xacro)/xacro --inorder '$(arg model)' load_trans_w:=true"/>
+
+        <node name="controller_spawner" pkg="controller_manager" type="spawner" output="screen" respawn="false" args="joint_state_controller wheel_controller_fr wheel_controller_fl wheel_controller_rr wheel_controller_rl" />
+    </group>
+
+    <node name="controller_gazebo" pkg="controller_manager" type="spawner" respawn="false" output="screen" args="gazebo_ros_control"/>
+    
+</launch>

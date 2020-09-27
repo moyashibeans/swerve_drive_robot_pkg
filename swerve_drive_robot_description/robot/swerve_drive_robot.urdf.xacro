@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<robot name="swerve_drive_robot" xmlns:xacro="http://ros.org/wiki/xacro">
+
+    <xacro:include filename="$(find swerve_drive_robot_description)/urdf/color_palette.xacro"/>
+    <xacro:include filename="$(find swerve_drive_robot_description)/urdf/base/base.urdf.xacro"/>
+    <xacro:include filename="$(find swerve_drive_robot_description)/urdf/swerve_drive/swerve_drive.urdf.xacro"/>
+
+    <link name="base_footprint"/>
+    
+    <xacro:base_v0 link_name="base_link" parent="base_footprint">
+		<origin xyz="0 0 0.005"/>
+	</xacro:base_v0>
+	
+	<!-- base_height 0.15 base_length 0.09 steering_radius 0.015-->
+	<!-- Front Right Swerve Drive-->
+	<xacro:swerve_drive_v0 prefix="front_right" parent="base_link">
+		<origin xyz="0.06 -0.06 0" />
+		<!--steering-->
+		<axis xyz="0 0 1"/>
+		<!--wheel-->
+		<axis xyz="0 1 0"/>
+	</xacro:swerve_drive_v0>
+
+	<!-- Front Left Swerve Drive-->
+	<xacro:swerve_drive_v0 prefix="front_left" parent="base_link">
+		<origin xyz="0.06 0.06 0" />
+		<!--steering-->
+		<axis xyz="0 0 1"/>
+		<!--wheel-->
+		<axis xyz="0 1 0"/>
+	</xacro:swerve_drive_v0>
+
+	<!-- Rear Right Swerve Drive-->
+	<xacro:swerve_drive_v0 prefix="rear_right" parent="base_link">
+		<origin xyz="-0.06 -0.06 0" />
+		<!--steering-->
+		<axis xyz="0 0 1"/>
+		<!--wheel-->
+		<axis xyz="0 1 0"/>
+	</xacro:swerve_drive_v0>
+
+	<!-- Rear Left Swerve Drive-->
+	<xacro:swerve_drive_v0 prefix="rear_left" parent="base_link">
+		<origin xyz="-0.06 0.06 0"/>
+		<!--steering-->
+		<axis xyz="0 0 1"/>
+		<!--wheel-->
+		<axis xyz="0 1 0"/>
+	</xacro:swerve_drive_v0>
+
+	<!-- ===============  Transmission =============== -->
+	<xacro:arg name="load_trans_s" default="false" />	
+	<xacro:arg name="load_trans_w" default="false" />
+
+	<xacro:if value="$(arg load_trans_s)">
+		<xacro:steering_trans_v0 prefix="front_right" />
+		<xacro:steering_trans_v0 prefix="front_left" />
+		<xacro:steering_trans_v0 prefix="rear_right" />
+		<xacro:steering_trans_v0 prefix="rear_left" />
+	</xacro:if>
+
+	<xacro:if value="$(arg load_trans_w)">
+		<xacro:wheel_trans_v0 prefix="front_right" />
+		<xacro:wheel_trans_v0 prefix="front_left" />
+		<xacro:wheel_trans_v0 prefix="rear_right" />
+		<xacro:wheel_trans_v0 prefix="rear_left" />
+	</xacro:if>
+		<!-- =============== Gazebo =============== -->
+	<!-- Namespace -->
+	<gazebo>
+		<plugin name="gazebo_ros_control_wheel" filename="libgazebo_ros_control.so">
+			<robotNamespace>/swerve_drive_robot/wheel</robotNamespace>
+			<robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+			<legacyModeNS>false</legacyModeNS>
+		</plugin>
+	</gazebo>
+
+	<gazebo>
+		<plugin name="gazebo_ros_control_steering" filename="libgazebo_ros_control.so">
+			<robotNamespace>/swerve_drive_robot/steering</robotNamespace>
+			<robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+			<legacyModeNS>false</legacyModeNS>
+		</plugin>
+	</gazebo>
+	
+	<xacro:base_gazebo_v0 link_name="base_link"/>
+
+	<xacro:swerve_drive_gazebo_v0 prefix="front_right"/>
+	<xacro:swerve_drive_gazebo_v0 prefix="front_left"/>
+	<xacro:swerve_drive_gazebo_v0 prefix="rear_right"/>
+	<xacro:swerve_drive_gazebo_v0 prefix="rear_left"/>
+
+</robot>
