@@ -22,7 +22,7 @@
             <parent link="${parent}"/>
             <child link="${prefix}_steering_link"/>
             <xacro:insert_block name="joint_axis_s"/>
-            <limit lower="-${M_PI}" upper="${M_PI}" effort="100" velocity="100"/>
+            <limit lower="-${M_PI}" upper="${M_PI}" effort="10" velocity="10"/>
         </joint>
 
         <link name="${prefix}_steering_link">
@@ -51,8 +51,8 @@
             <parent link="${prefix}_steering_link"/>
             <child link="${prefix}_wheel_link"/>
             <xacro:insert_block name="joint_axis_w"/>
-            <limit velocity="12.0" effort="10" />
-            <dynamics damping="0.01"/>
+            <limit velocity="15.0" effort="0.001" />
+            <dynamics damping="0"/>
         </joint>
 
         <link name="${prefix}_wheel_link">

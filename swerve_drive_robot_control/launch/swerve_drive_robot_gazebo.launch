@@ -29,11 +29,9 @@
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
     <!-- Launch visualization in rviz -->
     
-    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find swerve_drive_robot_control)/rviz/swerve_drive_robot.rviz"/>
+    <node if="$(arg use_rviz)" pkg="rviz" type="rviz" name="rviz" args="-d $(find swerve_drive_robot_control)/rviz/swerve_drive_robot.rviz"/>
 
-    <node name="joy_node" pkg="joy" type="joy_node" >
-
-    </node>
-    <node name="joy_control" pkg="swerve_drive_robot_control" type="joy_control"/>
+    <node name="joy_node" pkg="joy" type="joy_node" />
+    <node name="swerve_drive_control" pkg="swerve_drive_robot_control" type="swerve_drive_control" output = "screen"/>
     
 </launch>

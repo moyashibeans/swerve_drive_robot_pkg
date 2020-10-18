@@ -1,0 +1,38 @@
+{
+    "configurations": [
+        {
+            "browse": {
+                "databaseFilename": "",
+                "limitSymbolsToIncludedHeaders": true
+            },
+            "includePath": [
+                "/home/moyashi/catkin_ws/devel/include/**",
+                "/opt/ros/melodic/include/**",
+                "/home/moyashi/catkin_ws/src/cv_bridge/include/**",
+                "/home/moyashi/catkin_ws/src/yumi/gazebo_mimic/include/**",
+                "/home/moyashi/catkin_ws/src/industrial_core/industrial_robot_client/include/**",
+                "/home/moyashi/catkin_ws/src/industrial_core/industrial_trajectory_filters/include/**",
+                "/home/moyashi/catkin_ws/src/industrial_core/industrial_utils/include/**",
+                "/home/moyashi/catkin_ws/src/object_distance/include/**",
+                "/home/moyashi/catkin_ws/src/realsense-ros/realsense2_camera/include/**",
+                "/home/moyashi/catkin_ws/src/sciurus17_ros/sciurus17_control/include/**",
+                "/home/moyashi/catkin_ws/src/seed_r7_ros_pkg/seed_r7_ros_controller/include/**",
+                "/home/moyashi/catkin_ws/src/seed_smartactuator_sdk/include/**",
+                "/home/moyashi/catkin_ws/src/industrial_core/simple_message/include/**",
+                "/home/moyashi/catkin_ws/src/swerve_drive_robot_pkg/swerve_drive_robot_control/include/**",
+                "/home/moyashi/catkin_ws/src/yumi/yumi_cameras/include/**",
+                "/home/moyashi/catkin_ws/src/yumi/yumi_hw/include/**",
+                "/home/moyashi/catkin_ws/src/yumi_perception/include/**",
+                "/home/moyashi/catkin_ws/src/yumi/yumi_test_controllers/include/**",
+                "/home/moyashi/catkin_ws/src/zed-ros-wrapper/zed_interfaces/include/**",
+                "/usr/include/**"
+            ],
+            "name": "ROS",
+            "intelliSenseMode": "gcc-x64",
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "c11",
+            "cppStandard": "c++14"
+        }
+    ],
+    "version": 4
+}
