@@ -123,3 +123,9 @@ add_executable(joy_control src/joy_control.cpp)
 target_link_libraries(joy_control
   ${catkin_LIBRARIES}
 )
+
+add_executable(swerve_drive_control src/swerve_drive_control.cpp)
+
+target_link_libraries(swerve_drive_control
+  ${catkin_LIBRARIES}
+)
